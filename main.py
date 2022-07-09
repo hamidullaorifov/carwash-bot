@@ -295,7 +295,8 @@ def changepass_handler(update:Update,context:CallbackContext):
     else:
         return start_handler(update,context)   
 
-
+def error(update:Update,context:CallbackContext):
+    print('Error occured')
 
 dispatcher.add_handler(ConversationHandler(
     entry_points=[MessageHandler(Filters.all,start_handler),],
@@ -355,6 +356,8 @@ dispatcher.add_handler(ConversationHandler(
     fallbacks=[CommandHandler('stop', stop_handler)]
 ))
 
+
+dispatcher.add_error_handler(callback=error)
 dispatcher.add_handler(CommandHandler('change',changepass_handler))
 dispatcher.add_handler(CommandHandler('login',login_handler))
 dispatcher.add_handler(CallbackQueryHandler(callback=confirm_number))
